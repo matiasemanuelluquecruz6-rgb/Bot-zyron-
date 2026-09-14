@@ -15,35 +15,20 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-5.6-luna")
 PREFIX = "1"
-
 # Prefijos de comandos:
-#   1ban @usuario
-#   Zyron ban @usuario
-#   zyron ban @usuario
-# También acepta el prefijo "Zyron" sin depender de mayúsculas/minúsculas.
-def get_prefix(bot, message):
-    content = message.content or ""
-    lowered = content.lower()
-
-    if lowered.startswith("zyron"):
-        # Conservamos exactamente el texto escrito para que discord.py
-        # pueda consumir el prefijo aunque el usuario escriba Zyron/zyron/ZYRON.
-        return content[:5]
-
-    if content.startswith("1"):
-        return "1"
-
-    return "1"
+# 1ban / 1help (sin espacio)
+# Zyron ban / Zyron help (con espacio)
+# También acepta zyron ban / zyron help.
+COMMAND_PREFIXES = ("1", "Zyron ", "zyron ")
 
 intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
 
 bot = commands.Bot(
-    command_prefix=get_prefix,
+    command_prefix=COMMAND_PREFIXES,
     intents=intents,
-    help_command=None,
-    case_insensitive=True
+    help_command=None
 )
 
 # ============================================================
