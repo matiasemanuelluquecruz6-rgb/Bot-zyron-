@@ -1,0 +1,8 @@
+discord.py[voice]
+requests
+openai
+Pillow
+yt-dlp
+beautifulsoup4
+Flask
+python-dotenv
