@@ -66,7 +66,7 @@ AUTOMOD_REPEAT_LIMIT = 6
 # HELPERS
 # ============================================================
 
-def result_embed(title: str, description: str, color=discord.Color.from_rgb(57, 255, 20), footer="Zyron"):
+def result_embed(title: str, description: str, color=discord.Color.from_rgb(255, 140, 0), footer="Zyron"):
     embed = discord.Embed(title=title, description=description, color=color)
     embed.set_footer(text=footer)
     embed.timestamp = discord.utils.utcnow()
@@ -78,7 +78,7 @@ def error_embed(description: str):
 
 
 def success_embed(title: str, description: str):
-    return result_embed(title, description, discord.Color.green(), "Zyron • Sistema")
+    return result_embed(title, description, discord.Color.orange(), "Zyron • Sistema")
 
 
 def parse_duration(value: str):
@@ -576,7 +576,7 @@ async def slash_nick(interaction: discord.Interaction, member: discord.Member, a
 async def slash_avatar(interaction: discord.Interaction, member: discord.Member):
     embed = discord.Embed(
         title=f"🖼️ Avatar de {member}",
-        color=discord.Color.from_rgb(57, 255, 20)
+        color=discord.Color.from_rgb(255, 140, 0)
     )
     embed.set_image(url=member.display_avatar.url)
     embed.set_footer(text=f"Zyron • ID: {member.id}")
@@ -588,7 +588,7 @@ def build_roles_embed(guild: discord.Guild):
     embed = discord.Embed(
         title=f"🎭 Roles de {guild.name}",
         description=f"Este servidor tiene **{len(roles)} roles**.",
-        color=discord.Color.from_rgb(57, 255, 20)
+        color=discord.Color.from_rgb(255, 140, 0)
     )
     if not roles:
         embed.add_field(name="Roles", value="No hay roles personalizados.", inline=False)
@@ -632,7 +632,7 @@ async def slash_roles(interaction: discord.Interaction):
 @bot.tree.command(name="userinfo", description="Muestra información de un miembro")
 @app_commands.describe(member="Miembro del que quieres ver la información")
 async def slash_userinfo(interaction: discord.Interaction, member: discord.Member):
-    embed = discord.Embed(title=f"👤 Información de {member}", color=discord.Color.from_rgb(57, 255, 20))
+    embed = discord.Embed(title=f"👤 Información de {member}", color=discord.Color.from_rgb(255, 140, 0))
     embed.set_thumbnail(url=member.display_avatar.url)
     embed.add_field(name="🏷️ Usuario", value=f"{member.mention}\n`{member}`", inline=True)
     embed.add_field(name="🆔 ID", value=f"`{member.id}`", inline=True)
@@ -652,7 +652,7 @@ def build_server_embed(guild: discord.Guild):
     embed = discord.Embed(
         title=f"🖥️ {guild.name}",
         description="Información del servidor",
-        color=discord.Color.from_rgb(57, 255, 20)
+        color=discord.Color.from_rgb(255, 140, 0)
     )
     if guild.icon:
         embed.set_thumbnail(url=guild.icon.url)
@@ -760,7 +760,7 @@ def ai_embed(question: str, answer: str):
     embed = discord.Embed(
         title="🤖 Zyron AI",
         description=answer,
-        color=discord.Color.from_rgb(57, 255, 20)
+        color=discord.Color.from_rgb(255, 140, 0)
     )
     embed.add_field(name="❓ Pregunta", value=question[:1024], inline=False)
     embed.set_footer(text="Zyron • Inteligencia artificial")
@@ -850,7 +850,7 @@ async def slash_automod(interaction: discord.Interaction, accion: app_commands.C
         await interaction.response.send_message(embed=success_embed("🛡️ AutoMod desactivado", "Zyron dejará de revisar automáticamente los mensajes."))
     else:
         estado = "🟢 Activado" if guild_id in AUTOMOD_ENABLED else "🔴 Desactivado"
-        embed = discord.Embed(title="🛡️ Estado de AutoMod", description=f"Estado actual: **{estado}**", color=discord.Color.from_rgb(57, 255, 20))
+        embed = discord.Embed(title="🛡️ Estado de AutoMod", description=f"Estado actual: **{estado}**", color=discord.Color.from_rgb(255, 140, 0))
         embed.add_field(name="🔗 Enlaces", value="Bloqueados", inline=True)
         embed.add_field(name="📢 Menciones", value=f"Máximo {AUTOMOD_MENTION_LIMIT}", inline=True)
         embed.add_field(name="🧹 Flood", value=f"Detecta {AUTOMOD_REPEAT_LIMIT}+ caracteres repetidos", inline=True)
@@ -911,7 +911,7 @@ async def slash_verified(interaction: discord.Interaction, role: discord.Role):
         await interaction.response.send_message(embed=error_embed(f"No puedo administrar {role.mention}. Revisa la posición de mi rol."), ephemeral=True)
         return
     VERIFIED_ROLE_IDS[interaction.guild.id] = role.id
-    embed=discord.Embed(title="🛡️ Verificación", description=f"Pulsa el botón de abajo para verificarte.\n\nRecibirás automáticamente el rol {role.mention}.", color=discord.Color.green())
+    embed=discord.Embed(title="🛡️ Verificación", description=f"Pulsa el botón de abajo para verificarte.\n\nRecibirás automáticamente el rol {role.mention}.", color=discord.Color.orange())
     embed.set_footer(text="Zyron • Sistema de verificación")
     embed.timestamp=discord.utils.utcnow()
     await interaction.response.send_message(embed=embed, view=VerifiedView())
@@ -1008,7 +1008,7 @@ class TicketView(discord.ui.View):
                     "🔐 El canal es privado y puedes modificar manualmente sus permisos.\n"
                     "🔒 Cuando termines, usa **Cerrar ticket** para eliminar este canal."
                 ),
-                color=discord.Color.from_rgb(57, 255, 20)
+                color=discord.Color.from_rgb(255, 140, 0)
             )
             embed.add_field(name="👤 Creador", value=member.mention, inline=True)
             embed.add_field(name="🆔 Canal", value=f"`{channel.id}`", inline=True)
@@ -1100,7 +1100,7 @@ async def slash_panel(interaction: discord.Interaction):
             "Puedes modificar los permisos del canal una vez creado.\n\n"
             "🔒 Para cerrar el ticket, usa el botón **Cerrar ticket** dentro del canal."
         ),
-        color=discord.Color.from_rgb(57, 255, 20)
+        color=discord.Color.from_rgb(255, 140, 0)
     )
     embed.set_footer(text="Zyron • Sistema de tickets")
     embed.timestamp = discord.utils.utcnow()
@@ -1114,9 +1114,9 @@ async def slash_panel(interaction: discord.Interaction):
 
 def build_help_embed():
     embed = discord.Embed(
-        title="🟢 ZYRON — AYUDA",
+        title="🟠 ZYRON — AYUDA",
         description="Todos los comandos disponibles de Zyron, organizados por categoría.",
-        color=discord.Color.from_rgb(57, 255, 20)
+        color=discord.Color.from_rgb(255, 140, 0)
     )
     embed.add_field(name="🛡️ Moderación", value=(
         "`ban` — Banea a un usuario.\n"
@@ -1500,7 +1500,7 @@ async def prefix_nick(ctx, member: discord.Member, *, apodo: str = None):
 async def prefix_avatar(ctx, member: discord.Member):
     embed = discord.Embed(
         title=f"🖼️ Avatar de {member}",
-        color=discord.Color.from_rgb(57, 255, 20)
+        color=discord.Color.from_rgb(255, 140, 0)
     )
     embed.set_image(url=member.display_avatar.url)
     embed.set_footer(text=f"Zyron • ID: {member.id}")
@@ -1518,7 +1518,7 @@ async def prefix_roles(ctx):
 @bot.command(name="userinfo")
 async def prefix_userinfo(ctx, member: discord.Member = None):
     member = member or ctx.author
-    embed = discord.Embed(title=f"👤 Información de {member}", color=discord.Color.from_rgb(57, 255, 20))
+    embed = discord.Embed(title=f"👤 Información de {member}", color=discord.Color.from_rgb(255, 140, 0))
     embed.set_thumbnail(url=member.display_avatar.url)
     embed.add_field(name="🏷️ Usuario", value=f"{member.mention}\n`{member}`", inline=True)
     embed.add_field(name="🆔 ID", value=f"`{member.id}`", inline=True)
@@ -1599,7 +1599,7 @@ async def prefix_automod(ctx, accion: str = None):
         await ctx.send(embed=success_embed("🛡️ AutoMod desactivado", "Zyron dejará de revisar automáticamente los mensajes."))
     elif accion == "estado":
         estado = "🟢 Activado" if guild_id in AUTOMOD_ENABLED else "🔴 Desactivado"
-        embed = discord.Embed(title="🛡️ Estado de AutoMod", description=f"Estado actual: **{estado}**", color=discord.Color.from_rgb(57, 255, 20))
+        embed = discord.Embed(title="🛡️ Estado de AutoMod", description=f"Estado actual: **{estado}**", color=discord.Color.from_rgb(255, 140, 0))
         embed.add_field(name="🔗 Enlaces", value="Bloqueados", inline=True)
         embed.add_field(name="📢 Menciones", value=f"Máximo {AUTOMOD_MENTION_LIMIT}", inline=True)
         embed.add_field(name="🧹 Flood", value=f"Detecta {AUTOMOD_REPEAT_LIMIT}+ caracteres repetidos", inline=True)
@@ -1623,7 +1623,7 @@ async def prefix_verified(ctx, role: discord.Role):
         await ctx.send(embed=error_embed(f"No puedo administrar {role.mention}. Revisa la posición de mi rol."), delete_after=5)
         return
     VERIFIED_ROLE_IDS[ctx.guild.id]=role.id
-    embed=discord.Embed(title="🛡️ Verificación", description=f"Pulsa el botón de abajo para verificarte.\n\nRecibirás automáticamente el rol {role.mention}.", color=discord.Color.green())
+    embed=discord.Embed(title="🛡️ Verificación", description=f"Pulsa el botón de abajo para verificarte.\n\nRecibirás automáticamente el rol {role.mention}.", color=discord.Color.orange())
     embed.set_footer(text="Zyron • Sistema de verificación")
     embed.timestamp=discord.utils.utcnow()
     await ctx.send(embed=embed, view=VerifiedView())
@@ -1644,7 +1644,7 @@ async def prefix_panel(ctx):
             "Puedes modificar los permisos del canal una vez creado.\n\n"
             "🔒 Para cerrar el ticket, usa el botón **Cerrar ticket** dentro del canal."
         ),
-        color=discord.Color.from_rgb(57, 255, 20)
+        color=discord.Color.from_rgb(255, 140, 0)
     )
     embed.set_footer(text="Zyron • Sistema de tickets")
     embed.timestamp = discord.utils.utcnow()
